@@ -9,17 +9,14 @@
                 http://www.opensource.org/licenses/gpl-3.0.html
   ------------------------------------------------------------------------------------------------------------------------------------
   A library for importing JSON feeds into Google spreadsheets. Functions include:
-
      ImportJSON            For use by end users to import a JSON feed from a URL 
      ImportJSONFromSheet   For use by end users to import JSON from one of the Sheets
      ImportJSONViaPost     For use by end users to import a JSON feed from a URL using POST parameters
      ImportJSONAdvanced    For use by script developers to easily extend the functionality of this library
      ImportJSONBasicAuth   For use by end users to import a JSON feed from a URL with HTTP Basic Auth (added by Karsten Lettow)
-
   For future enhancements see https://github.com/bradjasper/ImportJSON/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement
   
   For bug reports see https://github.com/bradjasper/ImportJSON/issues
-
   ------------------------------------------------------------------------------------------------------------------------------------
   Changelog:
   
@@ -67,10 +64,17 @@
  *
  * @return a two-dimensional array containing the data, with the first row containing headers
  **/
-function ImportJSON(url, query, parseOptions) {
+ function ImportJSON(url, query, parseOptions) {
   return ImportJSONAdvanced(url, null, query, parseOptions, includeXPath_, defaultTransform_);
 }
-
+function ImportOracleJSON(url, query, parseOptions) {
+  var oracleFetchOptions = {
+    headers:{
+      "x-api-key": "f561197a-82ea-4e54-acd2-386979018a7a"
+    }
+  }
+  return ImportJSONAdvanced(url, oracleFetchOptions, query, parseOptions, includeXPath_, defaultTransform_);
+}
 /**
  * Imports a JSON feed via a POST request and returns the results to be inserted into a Google Spreadsheet. The JSON feed is 
  * flattened to create a two-dimensional array. The first row contains the headers, with each column header indicating the path to 
